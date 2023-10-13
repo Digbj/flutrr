@@ -12,6 +12,9 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+body{
+font-family: sans-serif;
+}
 
 .App-header {
   background-color: #282c34;
@@ -91,4 +94,64 @@ button {
 button:hover{
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.7);
+}
+
+.sp{
+  color: rgba(106, 241, 251, 0.601);
+  text-decoration: underline;
+}
+.sp:hover{
+  cursor: pointer;
+}
+.nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+  padding: auto;
+  background-color: rgba(62, 121, 247, 0.642);
+}
+.logo{
+  height:2rem;
+  width:2rem;
+}
+.wel{
+  align-items: center;
+  background-image: url(https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80);
+  background-position: 50%;
+  background-size: cover;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: rgb(237, 241, 23);
+}
+.book{
+  align-items: center;
+  background-image: url(https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80);
+  background-position: 50%;
+  background-size: cover;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: rgb(246, 246, 244);
+  gap: 1rem;
+  
+}
+.book>div{
+  width: 17rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.book>div>input:focus {
+  border: none;
+  outline: none;
 }
