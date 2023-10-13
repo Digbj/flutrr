@@ -1,5 +1,6 @@
 import { useState } from "react"
 const AddBook=()=>{
+    const [msg,setMsg]=useState("")
     const [book,setBook]=useState({
         title:'',
         author:'',
@@ -8,6 +9,9 @@ const AddBook=()=>{
 
     const AddBooks=()=>{
         console.log(book)
+        if(!book.title||!book.author||!book.image){
+            setMsg("Fill All The Details*")
+        }
     }
     return(
         <div className="book">
@@ -24,6 +28,7 @@ const AddBook=()=>{
                 <input placeholder="Enter The Image Url" onChange={(e)=>{setBook({...book,image:e.target.value})}}/>
             </div>
             <button onClick={AddBooks}>Add</button>
+            <div className="war">{msg}</div>
         </div>
     )
 }
