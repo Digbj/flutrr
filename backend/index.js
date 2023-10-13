@@ -6,7 +6,7 @@ const bcrypt=require('bcrypt');
 const jwt=require('jsonwebtoken');
 const cookieParser=require('cookie-parser');
 const user=require('./schema/user')
-
+const Book=require('./schema/book')
 //Middle-ware
 const app=express();
 const salt=bcrypt.genSaltSync(10);
@@ -37,15 +37,15 @@ mongoose.connect('mongodb+srv://11223344:11223344@cluster0.pvuhypy.mongodb.net/?
 
 //registration api
 app.post('/reg',async(req,res)=>{
-    const {uname,uemail,upassword}=req.body;
+    const {name,email,password}=req.body;
     try{
-        const existingUser=await user.findOne({email:uemail});
+        const existingUser=await user.findOne({email:email});
     
     if(existingUser){
         res.status(400).json("User already Exists");
     }else{
         const userDet=await user.create({
-            name:uname,email:uemail,password:bcrypt.hashSync(upassword,salt),});
+            name:name,email:email,password:bcrypt.hashSync(password,salt),});
             res.json(userDet);
     }
     }catch(error){
@@ -99,6 +99,29 @@ app.get('/profile',(req,res)=>{
         //Sending the user details as the response
         res.json(details);
     })
+})
+
+
+//Posting a Book
+app.post('/books',async(req,res)=>{
+    const {title,author,image}=req.body;
+    try{
+       const myBook=await Book.create({title,author,image});
+       res.status(201).json(myBook); 
+    }catch(error){
+        res.json(400).json({error:"Could not add the book"})
+    }
+})
+
+//all book from db
+
+app.get('/book',async(req,res)=>{
+    try{
+        const books=await Book.find();
+        res.status(200).json(books);
+    }catch(error){
+        res.status(400).json({error:"Could not get the books"})
+    }
 })
 
 app.post('/logout',(req,res)=>{

@@ -103,16 +103,16 @@ button:hover{
 .sp:hover{
   cursor: pointer;
 }
-.nav{
+.nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  overflow: hidden;
   position: fixed;
   width: 100%;
   padding: auto;
   background-color: rgba(62, 121, 247, 0.642);
 }
+
 .logo{
   height:2rem;
   width:2rem;

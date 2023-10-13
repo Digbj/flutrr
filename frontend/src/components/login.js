@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
+import { Navigate } from "react-router-dom";
+import { UserContext } from "../context/userContext";
 const Login=()=>{
     const [toggle,setToggle]=useState(true)
     const [loginDet,setLoginDet]=useState({
@@ -12,16 +14,38 @@ const Login=()=>{
         ucpassword:'',
     })
     const [msg,setMsg]=useState("")
+    const [redirect,setRedirect]=useState(false)
+    const {setInfo}=useContext(UserContext);
     
-const LoginUser=()=>{
+const LoginUser=async(e)=>{
     console.log(loginDet)
     if(!loginDet.email||!loginDet.password){
         setMsg("Fill All The Credentials")
      }else{
         setMsg("")
-     }
+        try {
+            const response = await fetch('http://localhost:8000/login', {
+                method: 'POST',
+                body: JSON.stringify({ email: loginDet.email, password: loginDet.password }),
+                headers: { 'Content-type': 'application/json' },
+                credentials: 'include',
+            });
+
+            if (response.status === 200) {
+                const userInfo = await response.json();
+                setInfo(userInfo);
+                setRedirect(true);
+            } else {
+                setMsg('Wrong Credential');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
 }
-const Register=()=>{
+
+
+const Register=async(e)=>{
     console.log(regDetails)
     if(!regDetails.uname||!regDetails.uemail||!regDetails.ucpassword||!regDetails.upassword){
         setMsg("Fill All The Credentials")
@@ -31,10 +55,33 @@ const Register=()=>{
         setMsg("Password Didnot Matched")
     }else{
         setMsg("")
-        setToggle(true)
+        try {
+            const response = await fetch('http://localhost:8000/reg', {
+                method: 'POST',
+                body: JSON.stringify({
+                    name: regDetails.uname,
+                    email: regDetails.uemail,
+                    password: regDetails.upassword,
+                }),
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            if (response.status === 200) {
+                setMsg("Registration Successful");
+                setToggle(true);
+            } else {
+                setMsg('Registration Failed');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+
     }
 }
 
+if(redirect){
+    return <Navigate to='/books'/>
+}
 
     return(
         <>
@@ -43,7 +90,7 @@ const Register=()=>{
             <div className="cont">
             <h3>Login</h3>
             <div className="inp">
-                <input placeholder="User ID" onChange={(e)=>{setLoginDet({...loginDet,email:e.target.value})}}/>
+                <input placeholder="Email ID" onChange={(e)=>{setLoginDet({...loginDet,email:e.target.value})}}/>
                 <input type='password' placeholder="Password" onChange={(e)=>{setLoginDet({...loginDet,password:e.target.value})}}/>
             </div>
             <div><button onClick={LoginUser}>Login</button></div>
