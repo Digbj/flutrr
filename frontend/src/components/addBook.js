@@ -14,7 +14,7 @@ const AddBook=()=>{
       setMsg("Fill All The Details*");
     } else {
       try {
-        const response = await fetch("http://localhost:8000/books", {
+        const response = await fetch("https://bookapp-14vf.onrender.com/books", {
           method: "POST",
           body: JSON.stringify(book), // Use the 'book' object
           headers: { "Content-Type": "application/json" },

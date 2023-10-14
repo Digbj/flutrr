@@ -24,7 +24,7 @@ const LoginUser=async(e)=>{
      }else{
         setMsg("")
         try {
-            const response = await fetch('http://localhost:8000/login', {
+            const response = await fetch('https://bookapp-14vf.onrender.com/login', {
                 method: 'POST',
                 body: JSON.stringify({ email: loginDet.email, password: loginDet.password }),
                 headers: { 'Content-type': 'application/json' },
@@ -56,7 +56,7 @@ const Register=async(e)=>{
     }else{
         setMsg("")
         try {
-            const response = await fetch('http://localhost:8000/reg', {
+            const response = await fetch('https://bookapp-14vf.onrender.com/reg', {
                 method: 'POST',
                 body: JSON.stringify({
                     name: regDetails.uname,

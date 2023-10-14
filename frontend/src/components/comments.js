@@ -1,74 +1,71 @@
 import { UserContext } from "../context/userContext";
-import { useContext, useState,useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom"; // Import useLocation
 
 const Comments = () => {
   const { info } = useContext(UserContext);
-//   console.log(info.name);
-const [msg,setMsg]=useState('')
-const [commentData,setCommetData]=useState([])
+  const [msg, setMsg] = useState("");
+  const [commentData, setCommentData] = useState([]);
   const location = useLocation();
   const cardDetails = location.state.cardDetails;
   const { _id, title, author, image } = cardDetails;
-  const commentId=_id;
-//   console.log(cardDetails.id);
+  const commentId = _id;
+
   const [review, setReview] = useState({
-    id: _id, // Use cardDetails._id as the id
+    id: _id,
     name: info.name,
     rating: "",
     comments: "",
   });
 
-  const Handle=async()=>{
-    console.log(review)
-    if(!review.rating||!review.comments){
-setMsg("fill the Review")
-    }else if(parseInt(review.rating) < 1 || parseInt(review.rating) > 5){
-        setMsg("Rate in between 1-5");
-    }else{
-        
-        try {
-            const response = await fetch('http://localhost:8000/comments', {
-              method: 'POST',
-              body: JSON.stringify(review),
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              credentials: 'include',
-            });
-      
-            if (response.status === 201) {
-              setMsg('Comment added successfully!');
-            } else {
-              setMsg('Error while adding the comment');
-            }
-          } catch (error) {
-            console.error('Error adding comment:', error);
-            setMsg('Error adding the comment');
-          }
+  const Handle = async () => {
+    if (!review.rating || !review.comments) {
+      setMsg("Fill the review.");
+    } else if (parseInt(review.rating) < 1 || parseInt(review.rating) > 5) {
+      setMsg("Rate must be between 1 and 5.");
+    } else {
+      try {
+        const response = await fetch("https://bookapp-14vf.onrender.com/comments", {
+          method: "POST",
+          body: JSON.stringify(review),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+
+        if (response.status === 201) {
+          setMsg("Comment added successfully!");
+          // You can clear the form or reset the review state here
+          setReview({ ...review, rating: "", comments: "" });
+        } else {
+          setMsg("Error while adding the comment");
+        }
+      } catch (error) {
+        console.error("Error adding comment:", error);
+        setMsg("Error adding the comment");
+      }
     }
-    console.log(review)
-  }
+  };
 
   useEffect(() => {
     const fetchCommentById = async () => {
       try {
-        const response = await fetch(`your-server-url/comments/${commentId}`);
+        const response = await fetch(`https://bookapp-14vf.onrender.com/comments/${commentId}`);
         if (response.ok) {
           const data = await response.json();
-          setCommetData(data);
+          setCommentData(data);
         } else {
-          setMsg('Comment not found');
+          setMsg("Comment not found");
         }
       } catch (error) {
-        console.error('Error fetching comment by ID:', error);
-        setMsg('Server error');
+        console.error("Error fetching comment by ID:", error);
+        setMsg("Server error");
       }
     };
 
     fetchCommentById();
   }, [commentId]);
-console.log(review)
   return (
     <div className="revew">
       <div className="no"></div>
@@ -95,20 +92,25 @@ console.log(review)
           <button onClick={Handle}>Submit</button>
           <div>{msg}</div>
         </div>
-        <div>comments</div>
-        {
-            commentData?.map((data)=>{
-                return<div>
-                    <label>{data.name}</label>
-                    <p>{data.comment}</p>
-                </div>
-            })
-        }
+        <div><h3>Comments</h3></div>
+        {commentData?.map((data) => {
+          return (
+            <div>
+              <label>{data.name}</label>
+              <p>{data.comment}</p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
 };
 
 export default Comments;
+
+
+
+
+
 
 
