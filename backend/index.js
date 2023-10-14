@@ -7,6 +7,7 @@ const jwt=require('jsonwebtoken');
 const cookieParser=require('cookie-parser');
 const user=require('./schema/user')
 const Book=require('./schema/book')
+const comment=require('./schema/comments')
 //Middle-ware
 const app=express();
 const salt=bcrypt.genSaltSync(10);
@@ -123,6 +124,51 @@ app.get('/book',async(req,res)=>{
         res.status(400).json({error:"Could not get the books"})
     }
 })
+
+
+//adding comments
+app.post('/comments', async (req, res) => {
+    try {
+      const { id, name, rating, comment } = req.body;
+      
+      // Create a new comment using the Comment model
+      const newComment = new Comment({
+        id,
+        name,
+        rating,
+        comment,
+      });
+      
+      // Save the new comment to the database
+      await newComment.save();
+  
+      res.status(201).json(newComment); // Respond with the newly created comment
+    } catch (error) {
+      res.status(400).json({ error: 'Could not add the comment' });
+    }
+  });
+
+
+  //get comment by id
+  app.get('/comments/:id', async (req, res) => {
+    try {
+      const commentId = req.params.id;
+      const comment = await Comment.findById(commentId);
+  
+      if (!comment) {
+        return res.status(404).json({ message: 'Comment not found' });
+      }
+  
+      res.status(200).json(comment);
+    } catch (error) {
+      console.error('Error getting comment by ID:', error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+  
+
+
+
 
 app.post('/logout',(req,res)=>{
     res.cookie('token','').json('Loged Out')

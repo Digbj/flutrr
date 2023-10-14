@@ -1,9 +1,13 @@
 const mongoose=require('mongoose')
 const {Schema,model}=mongoose;
-const userSchema= new Schema({
-    title:{type:String,required:true},
-    author:{type:String,required:true},
-    image:{type:String,required:true}
+const commentSchema= new Schema({
+    id:{type:String,required:true},
+    name:{type:String,required:true},
+    rating:{type:String,required:true},
+    comment:{type:String,required:true},
 })
-const book= model('Book',bookSchema);
-module.exports=book;
+const comment= model('comment',commentSchema);
+module.exports=comment;
+
+
+

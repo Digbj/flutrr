@@ -7,6 +7,7 @@ import Login from "./components/login";
 import AddBook from "./components/addBook";
 import Books from "./components/books";
 import UserContextProvider from "./context/userContext";
+import Comments from "./components/comments";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/addbook' element={<AddBook/>}/>
         <Route path='/books' element={<Books/>}/>
+        <Route path='/comments/:id' element={<Comments/>}/>
       </Routes>
       </BrowserRouter>
       </UserContextProvider>

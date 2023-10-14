@@ -1,7 +1,10 @@
 .App {
   text-align: center;
 }
-
+html{
+  margin: 0;
+  padding: 0;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -112,7 +115,6 @@ button:hover{
   justify-content: space-between;
   position: fixed;
   width: 100%;
-  padding: auto;
   background-color: rgba(62, 121, 247, 0.642);
 }
 
@@ -215,4 +217,31 @@ gap: 5rem;
   color: rgb(23, 125, 241);
  text-decoration:underline;
   text-shadow: 0 0 5px #ffffff;
+}
+
+.title{
+  color: rgb(237, 241, 23);
+  text-shadow: 0 0 5px #ffffff;
+}
+/* .review{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+} */
+/* .card2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+  height: 200px;
+  width: 150px;
+} */
+.no{
+  padding: 1.5rem;
+}
+.img1{
+  height: 200px;
+  width: 130px;
 }

@@ -27,16 +27,14 @@ console.log(info)
         }
     };
 
-    // if (info == null) {
-    //     return <Navigate to='/' />;
-    // }
+   
 
     return (
         <div className="nav">
             <div>
                 <img className="logo" src='https://icons.iconarchive.com/icons/wwalczyszyn/android-style-honeycomb/256/Books-icon.png' alt='logo' />
             </div>
-            <div>The Book Store</div>
+            <div className="title">The Book Store</div>
             <div>
                 {info ? (
                     <>
