@@ -1,5 +1,5 @@
 import { useState,useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate ,Link} from "react-router-dom";
 import { UserContext } from "../context/userContext";
 const Login=()=>{
     const [toggle,setToggle]=useState(true)
@@ -97,6 +97,7 @@ if(redirect){
             <div><p>New User Register <span className="sp" onClick={()=>{setToggle(false)}}>Here</span></p></div>
             <div>{msg}</div>
             </div>
+            <div><Link to='/books'><button>Login As Guest</button></Link></div>
         </div>
         
         :
@@ -115,7 +116,8 @@ if(redirect){
             <div>{msg}</div>
             </div>
         </div>
-        }       
+        }   
+            
         </>
        
     )
